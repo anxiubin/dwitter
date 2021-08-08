@@ -1,5 +1,6 @@
 import firebase from "firebase/app"
 import "firebase/analytics"
+import "firebase/auth"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -12,5 +13,7 @@ const firebaseConfig = {
 	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 }
 // Initialize Firebase
-export default firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 firebase.analytics()
+export const firebaseInstance = firebase
+export const authService = firebase.auth()
