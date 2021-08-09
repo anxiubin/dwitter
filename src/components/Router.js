@@ -3,14 +3,14 @@ import Auth from "routes/Auth"
 import Home from "routes/Home"
 import Profile from "routes/Profile"
 
-const Router = ({ isLoggedIn }) => {
+const Router = ({ isLoggedIn, userObj }) => {
 	return (
 		<HashRouter>
 			<Switch>
 				{isLoggedIn ? (
 					<>
 						<Route exact path="/">
-							<Home />
+							<Home userObj={userObj} />
 						</Route>
 						<Route exact path="/profile">
 							<Profile />
