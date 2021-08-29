@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { dbService } from "firebaseInstance"
+import { dbService, storageService } from "firebaseInstance"
 
 const Dweet = ({ dweetObj, isOwner }) => {
 	const [editing, setEditing] = useState(false)
@@ -9,6 +9,9 @@ const Dweet = ({ dweetObj, isOwner }) => {
 		try {
 			if (ok) {
 				await dbService.doc(`dweets/${dweetObj.id}`).delete()
+				if (dweetObj.thumbnailUrl !== "") {
+					await storageService.refFromURL(dweetObj.thumbnailUrl).delete()
+				}
 			}
 		} catch (e) {
 			console.error(e)
@@ -55,6 +58,14 @@ const Dweet = ({ dweetObj, isOwner }) => {
 			) : (
 				<>
 					<h4>{dweetObj.text}</h4>
+					{dweetObj.thumbnailUrl && (
+						<img
+							src={dweetObj.thumbnailUrl}
+							width="50px"
+							height="50px"
+							alt="dweet"
+						/>
+					)}
 					{isOwner && (
 						<>
 							<button onClick={onDeleteClick}>Delete Dweet</button>
