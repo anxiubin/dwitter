@@ -3,7 +3,7 @@ import Auth from "routes/Auth"
 import Home from "routes/Home"
 import Profile from "routes/Profile"
 
-const Router = ({ isLoggedIn, userObj }) => {
+const Router = ({ refreshUser, isLoggedIn, userObj }) => {
 	return (
 		<HashRouter>
 			<Switch>
@@ -13,7 +13,7 @@ const Router = ({ isLoggedIn, userObj }) => {
 							<Home userObj={userObj} />
 						</Route>
 						<Route exact path="/profile">
-							<Profile />
+							<Profile userObj={userObj} refreshUser={refreshUser} />
 						</Route>
 					</>
 				) : (
