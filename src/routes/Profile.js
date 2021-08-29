@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { authService, dbService } from "firebaseInstance"
 import { useHistory } from "react-router"
 import Dweet from "components/Dweet"
@@ -26,21 +26,24 @@ function Profile({ refreshUser, userObj }) {
 			refreshUser()
 		}
 	}
-	const getMyDweets = async () => {
-		const myDweets = await dbService
+	const getMyDweets = useCallback(() => {
+		dbService
 			.collection("dweets")
 			.where("creatorId", "==", userObj.uid)
 			.orderBy("createdAt", "desc")
-			.get()
-		const dweetArray = myDweets.docs.map((doc) => ({
-			id: doc.id,
-			...doc.data(),
-		}))
-		setDweets(dweetArray)
-	}
+			.onSnapshot((snapshot) => {
+				const dweetArray = snapshot.docs.map((doc) => ({
+					id: doc.id,
+					...doc.data(),
+				}))
+				setDweets(dweetArray)
+			})
+	}, [userObj])
 
 	useEffect(() => {
 		getMyDweets()
+
+		return () => setDweets([])
 	}, [])
 
 	return (
