@@ -69,7 +69,7 @@ function Profile({ refreshUser, userObj }) {
 			<span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
 				Log Out
 			</span>
-			<div className="container_dweets">
+			<div className="myDweetsContainer">
 				<h1>My Dweets</h1>
 				{dweets.map((dweet) => (
 					<Dweet

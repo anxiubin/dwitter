@@ -23,7 +23,7 @@ function Auth() {
 		} else if (name === "github") {
 			provider = new firebaseInstance.auth.GithubAuthProvider()
 		}
-		await authService.signInWithPopup(provider)
+		await authService.signInWithRedirect(provider)
 	}
 	return (
 		<div className="authContainer">

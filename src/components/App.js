@@ -45,7 +45,7 @@ function App() {
 					userObj={userObj}
 				/>
 			) : (
-				"Initializing..."
+				<div className="loading">Initializing...</div>
 			)}
 		</>
 	)
